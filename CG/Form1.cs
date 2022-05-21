@@ -1,52 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows;
+using System.Diagnostics;
 
 namespace CG
 {
     public partial class Form1 : Form
     {
+        private List<List<int>> p = new List<List<int>>();
+        private List<Tuple<int, int>> a = new List<Tuple<int, int>>();
+
         struct Objeto
         {
-            public int nv, ns;
-            public List<int> nvps;
-            public List<List<int>> coord, vs;
+            public List<List<int>> coord;
+            public List<Tuple<int, int>> arestas;
 
-            //NV Número de Vértices
-            //X[I], Y[I], Z[I] Coordenadas dos Vértices
-            //NS Número de Superfícies
-            //NVPS[I] Número de Vértices por Superfície
-            //VS[I] Vértices de uma determinada superfície – regra da mão direita
-
-            public Objeto(int nv, int ns, List<int> nvps, List<List<int>> coord, List<List<int>> vs)
+            public Objeto(List<List<int>> coord, List<Tuple<int, int>> arestas)
             {
-                this.nv = nv;
-                this.ns = ns;
-                this.nvps = nvps;
                 this.coord = coord;
-                this.vs = vs;
+                this.arestas = arestas;
             }
         }
 
-        Objeto cubo = new Objeto(8, 6,
-            new List<int>() { 4, 4, 4, 4, 4, 4 },
+        Objeto cubo = new Objeto(
             new List<List<int>>() { new List<int>() { 1, 2, 1, 2, 1, 2, 1, 2 }, // x
                                     new List<int>() { 1, 1, 2, 2, 1, 1, 2, 2 }, // y
                                     new List<int>() { 1, 1, 1, 1, 2, 2, 2, 2 }, // z
                                     new List<int>() { 1, 1, 1, 1, 1, 1, 1, 1 }}, // w
-            new List<List<int>>() { new List<int>() { 0, 1, 2, 3 },
-                                    new List<int>() { 4, 5, 6, 7 },
-                                    new List<int>() { 0, 2, 4, 6 },
-                                    new List<int>() { 1, 3, 5, 7 },
-                                    new List<int>() { 2, 3, 6, 7 },
-                                    new List<int>() { 0, 1, 4, 5 }});
+            new List<Tuple<int, int>>() {
+                new Tuple<int, int>(0, 1),
+                new Tuple<int, int>(1, 3),
+                new Tuple<int, int>(3, 2),
+                new Tuple<int, int>(0, 2),
+                new Tuple<int, int>(0, 4),
+                new Tuple<int, int>(4, 5),
+                new Tuple<int, int>(4, 6),
+                new Tuple<int, int>(1, 5),
+                new Tuple<int, int>(7, 5),
+                new Tuple<int, int>(7, 3),
+                new Tuple<int, int>(2, 6),
+                new Tuple<int, int>(6, 7)});
+
+        Objeto piramide = new Objeto(
+            new List<List<int>>() { new List<int>() { 1, 2, 1, 2, 2 }, // x
+                                    new List<int>() { 1, 1, 1, 1, 2 }, // y
+                                    new List<int>() { 1, 1, 2, 2, 2 }, // z
+                                    new List<int>() { 1, 1, 1, 1, 1 }}, // w
+            new List<Tuple<int, int>>() {
+                new Tuple<int, int>(0, 1),
+                new Tuple<int, int>(1, 2),
+                new Tuple<int, int>(2, 3),
+                new Tuple<int, int>(3, 1),
+                new Tuple<int, int>(0, 4),
+                new Tuple<int, int>(1, 4),
+                new Tuple<int, int>(2, 4),
+                new Tuple<int, int>(3, 4)});
+
+        Objeto prisma = new Objeto(
+            new List<List<int>>() { new List<int>() { 1, 2, 4, 5, 3, 1, 2, 4, 5, 3 }, // x
+                                    new List<int>() { 1, 1, 1, 1, 1, 4, 4, 4, 4, 4 }, // y
+                                    new List<int>() { 2, 1, 1, 2, 3, 2, 1, 1, 2, 3 }, // z
+                                    new List<int>() { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }}, // w
+            new List<Tuple<int, int>>() {
+                new Tuple<int, int>(0, 1),
+                new Tuple<int, int>(1, 2),
+                new Tuple<int, int>(2, 3),
+                new Tuple<int, int>(3, 4),
+                new Tuple<int, int>(4, 0),
+                new Tuple<int, int>(5, 6),
+                new Tuple<int, int>(6, 7),
+                new Tuple<int, int>(7, 8),
+                new Tuple<int, int>(8, 9),
+                new Tuple<int, int>(9, 5),
+                new Tuple<int, int>(0, 5),
+                new Tuple<int, int>(1, 6),
+                new Tuple<int, int>(2, 7),
+                new Tuple<int, int>(3, 8),
+                new Tuple<int, int>(4, 9)});
 
         int[] VetorNormal(int[] p1, int[] p2, int[] p3)
         {
@@ -122,6 +155,25 @@ namespace CG
 
         private void ProjetarButton_Click(object sender, EventArgs e)
         {
+            Objeto obj;
+            if(comboBox.Text == "Cubo")
+            {
+                obj = cubo;
+            } 
+            else if (comboBox.Text == "Piramide")
+            {
+                obj = piramide;
+            }
+            else if (comboBox.Text == "Prisma Pentagonal")
+            {
+                obj = prisma;
+            }
+            else
+            {
+                MessageBox.Show("Selecione um objeto válido");
+                return;
+            }
+
             //Ponto de Vista
             int x = (int)PVXValueBox.Value;
             int y = (int)PVYValueBox.Value;
@@ -144,26 +196,49 @@ namespace CG
             int z2 = (int)PPP2ZValueBox.Value;
             int[] p2 = { x2, y2, z2 };
 
-            int[] n = VetorNormal(p0, p1, p2);
-
-            List <List<int>> p = MatrizPerspectiva(cubo, n, p0, pv);
-
-            String output = "Vetor Normal:\n";
-            for (int i = 0; i < n.Length; i++)
+            if(( x0, y0, z0 ) == ( x1, y1, z1 ) || (x0, y0, z0) == ( x2, y2, z2 ) || (x1, y1, z1) == (x2, y2, z2))
             {
-                output += i + ": " + n[i] + "\n";
-            }
-            MessageBox.Show(output);
-
-            output = "per:\n";
-            for (int i = 0; i < p.Count; i++)
+                MessageBox.Show("Pontos Iguais");
+            } 
+            else
             {
-                output += i + ": " + p[i][0] + "\n";
-            }
-            MessageBox.Show(output);
+                int[] n = VetorNormal(p0, p1, p2);
 
-            //parece certo seila
+                p = MatrizPerspectiva(obj, n, p0, pv);
+                a = obj.arestas;
+
+                panel1.Invalidate();
+            }
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            Pen blackPen = new Pen(Color.Black, 3);
+            List<PointF> points = new List<PointF>();
+
+            if(p.Count > 0)
+            {
+                // Criar pontos do objetos
+                for (int i = 0; i < p[0].Count; i++)
+                {
+                    if(p[3][i] != 0)
+                    {
+                        points.Add(new PointF(p[0][i] / p[3][i] * 50, p[1][i] / p[3][i] * 50));
+                    } else
+                    {
+                        points.Add(new PointF());
+                    }
+                }
+
+                // Desenhar linhas
+                for (int i = 0; i < a.Count; i++)
+                {
+                    if(p[3][a[i].Item1] != 0 && p[3][a[i].Item2] != 0)
+                    {
+                        e.Graphics.DrawLine(blackPen, points[a[i].Item1], points[a[i].Item2]);
+                    }
+                }
+            }
+        }
     }
 }

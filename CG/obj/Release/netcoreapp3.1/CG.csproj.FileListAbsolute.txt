@@ -1,0 +1,16 @@
+C:\Users\Gabriel\source\repos\CG\CG\bin\Release\netcoreapp3.1\CG.exe
+C:\Users\Gabriel\source\repos\CG\CG\bin\Release\netcoreapp3.1\CG.deps.json
+C:\Users\Gabriel\source\repos\CG\CG\bin\Release\netcoreapp3.1\CG.runtimeconfig.json
+C:\Users\Gabriel\source\repos\CG\CG\bin\Release\netcoreapp3.1\CG.runtimeconfig.dev.json
+C:\Users\Gabriel\source\repos\CG\CG\bin\Release\netcoreapp3.1\CG.dll
+C:\Users\Gabriel\source\repos\CG\CG\bin\Release\netcoreapp3.1\CG.pdb
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.csproj.AssemblyReference.cache
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.Form1.resources
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.csproj.GenerateResource.cache
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.AssemblyInfoInputs.cache
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.AssemblyInfo.cs
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.dll
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.pdb
+C:\Users\Gabriel\source\repos\CG\CG\obj\Release\netcoreapp3.1\CG.genruntimeconfig.cache

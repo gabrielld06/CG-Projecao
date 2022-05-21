@@ -59,6 +59,7 @@
             this.PPP2YValueBox = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ProjetarButton = new System.Windows.Forms.Button();
+            this.comboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.PVXValueBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PVYValueBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PVZValueBox)).BeginInit();
@@ -78,7 +79,7 @@
             this.PVXValueBox.Location = new System.Drawing.Point(50, 55);
             this.PVXValueBox.Name = "PVXValueBox";
             this.PVXValueBox.Size = new System.Drawing.Size(120, 23);
-            this.PVXValueBox.TabIndex = 0; 
+            this.PVXValueBox.TabIndex = 0;
             // 
             // pontoDeVistaLabel
             // 
@@ -314,8 +315,9 @@
             // 
             this.panel1.Location = new System.Drawing.Point(247, 37);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(525, 476);
+            this.panel1.Size = new System.Drawing.Size(500, 500);
             this.panel1.TabIndex = 6;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // ProjetarButton
             // 
@@ -327,11 +329,24 @@
             this.ProjetarButton.UseVisualStyleBackColor = true;
             this.ProjetarButton.Click += new System.EventHandler(this.ProjetarButton_Click);
             // 
+            // comboBox
+            // 
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Items.AddRange(new object[] {
+            "Cubo",
+            "Piramide",
+            "Prisma Pentagonal"});
+            this.comboBox.Location = new System.Drawing.Point(49, 444);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(121, 23);
+            this.comboBox.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.comboBox);
             this.Controls.Add(this.ProjetarButton);
             this.Controls.Add(this.PPP2XValueBox);
             this.Controls.Add(this.ppP2YLabel);
@@ -416,6 +431,7 @@
         private System.Windows.Forms.NumericUpDown PPP2YValueBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button ProjetarButton;
+        private System.Windows.Forms.ComboBox comboBox;
     }
 }
 
